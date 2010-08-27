@@ -90,6 +90,8 @@ li .todo-content .text form div{ display: none;}
     padding-left: 20px;
 }
 
+.todo-content { cursor: move; }
+
 dt.todo {
     background-image:url(../images/todo.png);
 }
