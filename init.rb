@@ -31,9 +31,9 @@ Dispatcher.to_prepare do
 end
 
 Redmine::Plugin.register :redmine_priorities_plugin do
-  name 'Redmine Todo Lists plugin'
-  author 'David Lyons'
-  description 'A plugin to create and manage agile-esque todo lists on a per project basis.'
+  name 'Redmine Priorities plugin'
+  author 'centresource interactive agency'
+  description 'A plugin to create and manage agile-esque priority lists on a per project basis.'
   version '0.0.4.1'
   
 
