@@ -19,7 +19,7 @@ class TodoIssuesHook < Redmine::Hook::ViewListener
 
     if (controller.class.name == 'ProjectsController' and action_name == 'activity')
       o = ""
-      o << stylesheet_link_tag('todos', :plugin => 'redmine_todos_plugin')
+      o << stylesheet_link_tag('todos', :plugin => 'redmine_priorities_plugin')
       return o
     end
   end
