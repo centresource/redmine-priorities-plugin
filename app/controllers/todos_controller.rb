@@ -105,7 +105,7 @@ class TodosController < ApplicationController
         redirect_to :action => "index", :project_id => params[:project_id]
       end
     else
-      flash[:notice] = "fail! you suck."
+      flash[:notice] = "Please fill in all required fields."
       render :action => "index", :project_id => params[:project_id]
     end
   end
