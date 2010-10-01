@@ -4,7 +4,6 @@
 #   todo : a new Todo object
   parent_object = todo.todoable
   raise unless parent_object
-  
 %>
 
 <div class="new-todo">
@@ -38,6 +37,7 @@
     <%= f.hidden_field :parent_id %>
     <br />
     <% if todo.todoable.is_a? Project %>
+      Assigned to:
       <%= f.select :assigned_to_id, todo.todoable.users.collect{|m| [m.name,m.id]},
            {:prompt=> l(:todo_new_assign_to_tooltip) },  
            {:title => l(:todo_new_assign_to_tooltip) }

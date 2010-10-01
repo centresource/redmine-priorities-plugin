@@ -93,7 +93,6 @@ class TodosController < ApplicationController
     #@todo.todoable = @project
     @todo.author = User.current
     
-    
     if @todo.save
       if (request.xhr?)
         @element_html = render_to_string :partial => 'todos/todo_li',
@@ -105,7 +104,7 @@ class TodosController < ApplicationController
         redirect_to :action => "index", :project_id => params[:project_id]
       end
     else
-      flash[:notice] = "fail! you suck."
+      flash[:notice] = "You don't have permission to create a new ToDo."
       render :action => "index", :project_id => params[:project_id]
     end
   end
