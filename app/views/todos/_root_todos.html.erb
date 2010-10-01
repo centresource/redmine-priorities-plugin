@@ -5,7 +5,7 @@
     <ul class="todos root" id="<%= TodosController::UL_ID + 'root' %><%='not-editable' unless editable %>">
       <% for todo in todos.sort{|a,b| a.position <=> b.position} %>
           <%= render :partial => 'todos/todo_li', :locals => { :todo => todo, :editable => editable }%>
-      <% end %>
+      <% end unless todos.blank? %>
     </ul>
     <%= 
       if editable then

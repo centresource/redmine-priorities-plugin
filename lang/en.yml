@@ -10,10 +10,10 @@ mytodos_heading: My Personal Todos
 mytodos_edit_project_tooltip: "Edit the todos for this project"
 
 todo_new_done_link: Done adding todos
-todo_new_due_label: Due
+todo_new_due_label: Due Date
 todo_new_or_label: or
 todo_new_create_button: Create Todo
-todo_new_issue_tooltip: refers to
+todo_new_issue_tooltip: please select...
 todo_new_assign_to_tooltip: assign to
 
 todos_project_heading: Todos for

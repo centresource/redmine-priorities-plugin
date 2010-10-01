@@ -11,11 +11,11 @@ en:
   mytodos_edit_project_tooltip: "Edit the priorities for this project"
   
   todo_new_done_link: Done adding priorities
-  todo_new_due_label: Due
+  todo_new_due_label: Due Date
   todo_new_or_label: or
   todo_new_create_button: Create Priority
-  todo_new_issue_tooltip: refers to
-  todo_new_assign_to_tooltip: assign to
+  todo_new_issue_tooltip: please select...
+  todo_new_assign_to_tooltip: please select...
   
   todos_project_heading: Priorities for
   todos_print_button_tooltip: Print this list

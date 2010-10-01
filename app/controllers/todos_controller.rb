@@ -3,22 +3,22 @@
 
 class TodosController < ApplicationController
 
-  #put in a filthy hack to reload the patches to core redmine models.
-  #If cache_classes is off, the patches are dropped when the classes reload on every request.
-  #So, we reapply the patches here - for some reason it doesnt work in the Todo model.
-  #TODO: you are very welcome to find a better way to do this!
-  #unless Rails.configuration.cache_classes
-  #unloadable
-  #  Project.send(:include, TodosProjectPatch)
-  #end
+  # put in a filthy hack to reload the patches to core redmine models.
+  # If cache_classes is off, the patches are dropped when the classes reload on every request.
+  # So, we reapply the patches here - for some reason it doesnt work in the Todo model.
+  # TODO: you are very welcome to find a better way to do this!
+  # unless Rails.configuration.cache_classes
+  # unloadable
+  #   Project.send(:include, TodosProjectPatch)
+  # end
   
-  #before_filter :find_project  #, :only => [:index] 
+  # before_filter :find_project  #, :only => [:index] 
   before_filter :find_todo, :only => [:destroy, :show, :toggle_complete, :edit, :update]
   before_filter :authorize
 
   helper :todos
   
- #global string to use as the suffix for the element id for todo's <UL> 
+  # global string to use as the suffix for the element id for todo's <UL> 
   UL_ID = "todo-children-ul_"
   TODO_LI_ID = "todo_"
   
@@ -28,7 +28,7 @@ class TodosController < ApplicationController
 
     @allowed_to_edit = User.current.allowed_to?(:edit_todos, @project)
     
-    @new_todo = parent_object.todos.new(:assigned_to => User.current) #Todo.new
+    @new_todo = parent_object.todos.new() #Todo.new
    
   end
   #alias_method :index, :project_index
@@ -67,7 +67,7 @@ class TodosController < ApplicationController
     @todo = parent_object.todos.new
     @todo.parent_id = parent_object.todos.find(params[:parent_id]).id
     @todo.refers_to = Issue.find(params[:issue_id]) if params[:issue_id]
-    @todo.assigned_to = User.current
+    # @todo.assigned_to = User.current
     
     #@todo.todoable = parent_object
     
@@ -78,20 +78,40 @@ class TodosController < ApplicationController
     #@todo = Todo.for_project(@project.id).find(params[:id])
     @todo.set_done !@todo.done
     if (request.xhr?)
-      @element_html = render_to_string :partial => 'todos/todo',
-                                         :locals => {:todo => @todo, :editable => true}                 
+      @element_html = render_to_string :partial => 'todos/todo', :locals => {:todo => @todo, :editable => true}
       render :template => "todos/todo.rjs"
     else
       redirect_to :action => "index", :project_id => params[:project_id]
     end
   end
 
-
-
   def create
     @todo = parent_object.todos.new(params[:todo])
     #@todo.todoable = @project
     @todo.author = User.current
+    
+    respond_to do |format|
+      if @todo.save
+        format.html {
+          flash[:notice] = l(:notice_successful_create)
+          redirect_to :action => "index", :project_id => params[:project_id]
+        }
+        format.js {
+          @element_html = render_to_string :partial => 'todos/todo_li', :locals => { :todo => @todo, :editable => true }
+          render :template => "todos/create.rjs" and return   #using rjs
+        }
+      else
+        format.html {
+          flash[:notice] = "ToDo could not be created."
+          redirect_to :action => "index", :project_id => params[:project_id]
+        }
+        format.js {
+          render :update do |page|
+            page.alert("There was an error saving the priority. Please make sure you provide all fields.")
+          end and return
+        }
+      end
+    end
     
     if @todo.save
       if (request.xhr?)
@@ -104,8 +124,8 @@ class TodosController < ApplicationController
         redirect_to :action => "index", :project_id => params[:project_id]
       end
     else
-      flash[:notice] = "You don't have permission to create a new ToDo."
-      render :action => "index", :project_id => params[:project_id]
+      flash[:notice] = "ToDo could not be created."
+      redirect_to :action => "index", :project_id => params[:project_id]
     end
   end
   

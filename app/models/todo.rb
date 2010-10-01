@@ -57,22 +57,22 @@ class Todo < ActiveRecord::Base
                             :find_options => {:include => [ :project, :author, :refers_to]},
                             :author_key => :author_id
 
-  validates_presence_of  :author
-  validates_length_of :text, :within => 1..255
+  validates_presence_of :author
+  validates_presence_of :assigned_to_id
+  validates_presence_of :text, :if => Proc.new { |todo| todo.issue_id.blank? }
+  validates_length_of :text, :within => 0..255
 
   alias_attribute :created_on, :updated_at
   
-  #for some reason, running under Passenger in production, changing all the todo tree&order 
-  #positions doesnt work. For some reason, rails doesnt write the parent_id of some records 
-  #because it doesnt think they have changed when they actually have - the partial_updates feature 
-  #from rails is fucked for this scenario.
-  #I tried all sorts of reloads - the only thing that works is this bad boy.
+  # for some reason, running under Passenger in production, changing all the todo tree&order 
+  # positions doesnt work. For some reason, rails doesnt write the parent_id of some records 
+  # because it doesnt think they have changed when they actually have - the partial_updates feature 
+  # from rails is fucked for this scenario.
+  # I tried all sorts of reloads - the only thing that works is this bad boy.
   self.partial_updates = false
   
   def set_done(val, cascade_to_children = true)
     self.done = val
-    
-    #3debugger
     
     self.children.each{|c| c.set_done val} if cascade_to_children
     
