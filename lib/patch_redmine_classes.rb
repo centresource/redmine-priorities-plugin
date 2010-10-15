@@ -6,7 +6,7 @@
 
 # Patches Redmine's projects dynamically. Adds a relationship
 # Issue +belongs_to+ to Deliverable
-module TodosProjectPatch
+module PrioritiesProjectPatch
  # require_dependency 'project'
 
   def self.included(base) # :nodoc:
@@ -17,7 +17,7 @@ module TodosProjectPatch
     # Same as typing in the class
     Project.class_eval do
       unloadable # Send unloadable so it will not be unloaded in development
-      has_many :todos, :as => :todoable, :dependent => :destroy
+      has_many :priorities, :as => :prioritizable, :dependent => :destroy
       #raise ActiveRecord::RecordNotFound, "pie"
 	#puts "ARRRRGH!!!!!!!!!!" + base.to_s
     end
@@ -32,8 +32,8 @@ module TodosProjectPatch
 end
 
 # Patches Redmine's Users dynamically. 
-# Adds relationships for accessing assigned and authored todos.
-module TodosUserPatch
+# Adds relationships for accessing assigned and authored priorities.
+module PrioritiesUserPatch
   
   def self.included(base) # :nodoc:
     base.extend(ClassMethods)
@@ -44,15 +44,15 @@ module TodosUserPatch
     base.class_eval do
       unloadable # Send unloadable so it will not be unloaded in development
       
-      has_many :todos, :as => :todoable, :dependent => :destroy
+      has_many :priorities, :as => :prioritizable, :dependent => :destroy
       
       #A user can 
-      has_many :authored_todos, :class_name => 'Todo', :foreign_key => 'author_id', :order => 'position'
-      has_many :assigned_todos, :class_name => 'Todo', :foreign_key => 'assigned_to_id', :order => 'position'
+      has_many :authored_priorities, :class_name => 'Priority', :foreign_key => 'author_id', :order => 'position'
+      has_many :assigned_priorities, :class_name => 'Priority', :foreign_key => 'assigned_to_id', :order => 'position'
       
-      #define a method to get the todos belonging to this user by UNIONing the above two collections
-      def my_todos
-        self.authored_todos | self.assigned_todos
+      #define a method to get the priorities belonging to this user by UNIONing the above two collections
+      def my_priorities
+        self.authored_priorities | self.assigned_priorities
       end
       #raise ActiveRecord::RecordNotFound, "pie"
     end

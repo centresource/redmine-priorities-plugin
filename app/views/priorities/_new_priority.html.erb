@@ -1,0 +1,70 @@
+<% 
+  parent_object = priority.prioritizable
+  raise unless parent_object
+%>
+
+<div class="new-priority">
+  <h3>New Priority</h3>
+  <% remote_form_for [parent_object,priority], :success => "elements['priority[text]'].activate().clear();" do |f| %>
+      
+    <%= f.hidden_field :due, :id => "due#{priority.parent_id}", 
+      :onchange => "$('due#{priority.parent_id}_span').update($('due#{priority.parent_id}').value); $('due#{priority.parent_id}_cancel_span').show();" %>
+    <%= f.hidden_field :parent_id %>
+    
+    <div class="priority-fieldgroup">
+      <%= f.label :text, 'Title' %>
+      <%= f.text_field :text, :size => 40 %>
+    </div>
+    
+    <div class="priority-fieldgroup">
+      <label><%= l(:priority_new_due_label) %></label>
+      <div class="priority-due-date">
+        <span id='<%= "due#{priority.parent_id}_span" %>' class="priority-date"></span>
+        <span id='<%= "due#{priority.parent_id}_cancel_span" %>' class='new-priority-date-cancel' style='display: none;'>
+          <%= 
+              link_to_function(image_tag('bullet_delete.png'), nil, :title => "Clear Date") do |page|
+                page["due#{priority.parent_id}"].value = ''
+                page.replace_html "due#{priority.parent_id}_span", ''
+                page.hide "due#{priority.parent_id}_cancel_span"
+              end 
+          %>
+        </span>
+        <span class="priority-due-cal">
+          <%= calendar_for "due#{priority.parent_id}" %>
+        </span>
+      </div>
+    </div>
+    
+    <div class="clearer"></div>
+
+    <% if priority.prioritizable.is_a? Project %>
+      <div class='priority-fieldgroup'>
+        <label>Assigned to:</label>
+        <%= f.select :assigned_to_id, priority.prioritizable.users.collect{ |m| [m.name,m.id] },
+             {:prompt => l(:priority_new_assign_to_tooltip) },  
+             {:title => l(:priority_new_assign_to_tooltip) }
+        %>
+      </div>
+      
+      <div class="priority-fieldgroup">
+        <label>References Issue:</label>
+        <%= f.select :issue_id, priority.possible_issues.collect{ |i| 
+                subject = i.subject[0..40].scan(/([\x00-\x7f]|[\xC0-\xDF][\x80-\xBF]|[\xE0-\xEF][\x80-\xBF]{2}|[\xF0-\xF7][\x80-\xBF]{3})/on).join
+                ["##{i.id} #{subject}... #{i.tracker.name}" , i.id]
+              },
+              {:prompt => l(:priority_new_issue_tooltip), :selected => (priority.issue_id)?  priority.issue_id.to_i : nil}
+        %>
+      </div>
+      
+      <div class="clearer"></div>
+    <% end %>
+    
+    <%= f.submit l(:priority_new_create_button) %>
+    
+    <% if priority.parent %>
+      <%= l(:priority_new_or_label) %>
+      <%= link_to_function(l(:priority_new_done_link),
+         "Element.update('priority#{priority.parent_id}-new-box','')") %>
+    <% end %>
+  <% end %>
+</div>

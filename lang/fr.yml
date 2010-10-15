@@ -1,44 +1,44 @@
 #language file for fr - pre rails 2.2.2
-label_todo_plural: Tâches
-my_todos_title: Mes Tâches
+label_priority_plural: Tâches
+my_priorities_title: Mes Tâches
 
-todo_sort_no_project_error: "impossible de trier sans un projet!"
-todo_project_not_found_error: "Le Projet demandé n'existe pas!"
-todo_new_missing_update_target_error: "Vous devez spécifier un update_target!!"
+priority_sort_no_project_error: "impossible de trier sans un projet!"
+priority_project_not_found_error: "Le Projet demandé n'existe pas!"
+priority_new_missing_update_target_error: "Vous devez spécifier un update_target!!"
 
-mytodos_heading: Mes Tâches Personnelles
-mytodos_edit_project_tooltip: "Editer les tâches pour ce projet"
+mypriorities_heading: Mes Tâches Personnelles
+mypriorities_edit_project_tooltip: "Editer les tâches pour ce projet"
 
-todo_new_done_link: Terminer l'ajout de Tâche
-todo_new_due_label: Date d'échéance
-todo_new_or_label: ou
-todo_new_create_button: Créer une Tâche
-todo_new_issue_tooltip: se rapporte à
-todo_new_assign_to_tooltip: assigner à
+priority_new_done_link: Terminer l'ajout de Tâche
+priority_new_due_label: Date d'échéance
+priority_new_or_label: ou
+priority_new_create_button: Créer une Tâche
+priority_new_issue_tooltip: se rapporte à
+priority_new_assign_to_tooltip: assigner à
 
-todos_project_heading: Tâches pour
-todos_print_button_tooltip: Imprimer cette liste
+priorities_project_heading: Tâches pour
+priorities_print_button_tooltip: Imprimer cette liste
 
-todo_unmark_tooltip: Marquer cette tâches (et ses fils) comme Incomplète
-todo_mark_tooltip: Marquer cette tâche (et ses fils) comme Terminée
-todo_add_child_tooltip: 'ajouter un fils à cette tâche'
-todo_delete_tooltip: effacer cette tâche (et ses fils!)
+priority_unmark_tooltip: Marquer cette tâches (et ses fils) comme Incomplète
+priority_mark_tooltip: Marquer cette tâche (et ses fils) comme Terminée
+priority_add_child_tooltip: 'ajouter un fils à cette tâche'
+priority_delete_tooltip: effacer cette tâche (et ses fils!)
 
-todo_due_label: "Date d'échéance:"
-todo_assigned_label: "Assigné à:"
-todo_ref_label: "Ref:"
+priority_due_label: "Date d'échéance:"
+priority_assigned_label: "Assigné à:"
+priority_ref_label: "Ref:"
 
-project_module_todo_lists: Liste de Tâches
+project_module_priority_lists: Liste de Tâches
 
-permission_view_todos: Voir les Listes de Tâches
-permission_edit_todos: Editer les Listes de Tâches
-permission_use_personal_todos: Utiliser les Listes de Tâches personnelles
+permission_view_priorities: Voir les Listes de Tâches
+permission_edit_priorities: Editer les Listes de Tâches
+permission_use_personal_priorities: Utiliser les Listes de Tâches personnelles
 
-label_related_todos: Tâches liées
+label_related_priorities: Tâches liées
 
-todo_not_found_error: "La Tâche demandée n'existe pas!"
+priority_not_found_error: "La Tâche demandée n'existe pas!"
 
-label_todo: Tâche
-todo_status_done: Terminé
-todo_status_new: Nouveau
-todo_status_updated: Mise à jour
+label_priority: Tâche
+priority_status_done: Terminé
+priority_status_new: Nouveau
+priority_status_updated: Mise à jour

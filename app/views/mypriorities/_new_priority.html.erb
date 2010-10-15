@@ -1,0 +1,26 @@
+<div class="new-priority">
+  <% remote_form_for :priority, priority, :url => {:action=> "create" }, 
+      :success => "elements['priority[text]'].activate().clear();" do |f| %>
+      
+    <%= f.hidden_field :due, :id=>"due#{priority.parent_id}", 
+      :onchange=> "$('due#{priority.parent_id}_span').update($('due#{priority.parent_id}').value);" %>
+    <%= f.text_field :text, :size => 40 %>
+    <span id="priority-flash-error-<%= priority.parent_id || 'root' %>" class='flash error' style='display: none;'></span>
+                
+    <%= l(:priority_new_due_label) %>
+    
+      <span style='position: relative; top: -2px;'>
+        <%= calendar_for "due#{priority.parent_id}" %></span>: <span id='<%= "due#{priority.parent_id}_span" %>' >
+      </span>
+
+    <%= f.hidden_field :parent_id %>
+    <br />
+
+    <%= f.submit l(:priority_new_create_button) %>
+    <% if priority.parent %>
+      <%= l(:priority_new_or_label) %> 
+      <%= link_to_function(l(:priority_new_done_link), 
+          "Element.update('priority#{priority.parent_id}-new-box','')") %>
+    <% end %>
+  <% end %>
+</div>

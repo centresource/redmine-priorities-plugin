@@ -1,0 +1,120 @@
+/* css for the project priorities screen */
+#project-priorities ul {
+  /*list-style-image: url(/images/sub.gif); */
+    list-style-type: none;
+
+}
+#project-priorities ul.root {
+  list-style-image: none;
+  list-style-type: none;
+  
+}
+#project-priorities ul.root li { font-size: 1.1em; padding-bottom: 0.6em; }
+#project-priorities ul.root ul.children { padding-bottom: 0px; padding-top: 0.5em;}
+#project-priorities ul.root ul.children li { font-size: 0.9em; padding-bottom: 0em; padding-top: 0.0em;}
+/*#project-priorities div.children { padding-bottom: 10px;}*/
+
+span.priority-has-children-true {text-decoration: underline; }
+
+/* #project-priorities ul.depth0 { background-color: #cecece;} */
+
+div.new-priority { 
+  background-color: #ffe2a9;
+  border: 1px solid #999;
+  padding: 15px;
+  width: 600px;
+  margin-left: 40px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+div.new-priority  { font-size: 0.8em }
+.new-priority-date-cancel {  position: relative; top:2px; left: -2px; }
+
+.priority-due-cal { float:right; position:relative; top:2px; }
+
+.priority-fieldgroup { float:left; margin:0 25px 15px 0; }
+.priority-fieldgroup label { display:block; float:left; font-weight:bold; line-height:21px; margin:0 5px 0 0; }
+.priority-fieldgroup input[type="text"] { padding:3px 5px; margin:0; }
+.priority-fieldgroup .priority-due-date {
+  background-color:#fff;
+  border:1px solid #D7D7D7;
+  float:left;
+  min-height:20px;
+  padding:0 5px;
+  margin:0;
+  width:125px;
+}
+.priority-fieldgroup .priority-due-date .priority-date { position:relative; top:-2px; }
+
+#project-priorities li {
+  text-align: middle;
+  vertical-align: middle;
+  margin: 0 0 0 0;
+}
+/*#project-priorities img {
+  position: relative;
+  top: 2px;
+  max-height: 14px;
+}*/
+
+.priority-controls {
+  margin-left: 0px;
+  text-decoration: none;
+}
+.priority-controls img, .priority-controls a {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  vertical-align:middle;
+
+}
+.priorities .date {
+  font-weight: bold;
+  font-size: 0.8em;
+  font-family: Arial;
+  padding-right: 2px;
+}
+.done  {  text-decoration: line-through; }
+.priorities .due {}
+.priorities .assigned {}
+.priorities .refers {}
+.priorities .notes {font-size: 0.9em; font-style:italic;  color: #446994; }
+.priorities .notes span { margin-left: 1em; }
+
+#priorities-link-bar {
+  float: right;
+  vertical-align: bottom;
+  min-height: 6.2em;
+}
+
+div#issue-priorities .priority { padding: 4px;}
+div#issue-priorities .priority { border-bottom: 1px solid #ddd; }
+div#issue-priorities p { margin-top: 0; margin-bottom: 1em;}
+div#issue-priorities #project-priorities ul.root { padding-left: 0px;}
+div#issue-priorities #project-priorities span.notes { color: #888888; font-size: 0.8em; font-style: normal;}
+div#issue-priorities #project-priorities span.notes span.refers { display: none;}
+
+#project-priorities li .priority-content p{ display: inline;}
+li .priority-content .text form div{ display: none;}
+
+#project-priorities li .priority-content span.flash.error, div.new-priority span.flash.error {
+    background: transparent url(/images/false.png) no-repeat scroll 0px -2px;
+    color: #ff0000;
+    font-size: 11px;
+    padding-left: 20px;
+}
+
+.priority-content { cursor: move; }
+
+dt.priority {
+    background-image:url(../images/priority.png);
+}
+
+.priorities-edit {
+  border: 1px solid #e4e4e4; 
+  padding: 0.7em; 
+  margin:0.4em; 
+  background-color:#f6f6f6;
+  float: left;
+}
+.clearer { clear:both; }
+.priorities-edit form { display: inline; }

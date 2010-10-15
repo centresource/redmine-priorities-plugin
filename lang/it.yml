@@ -1,35 +1,35 @@
 #language file for en - pre rails 2.2.2
-label_todo_plural: ToDo
-my_todos_title: Miei Todo
+label_priority_plural: Priority
+my_priorities_title: Miei Priority
 
-todo_sort_no_project_error: "Impossibile ordinare senza un progetto!"
-todo_project_not_found_error: "Progetto non trovato!"
-todo_new_missing_update_target_error: "Hai bisogno di un update_target!!"
+priority_sort_no_project_error: "Impossibile ordinare senza un progetto!"
+priority_project_not_found_error: "Progetto non trovato!"
+priority_new_missing_update_target_error: "Hai bisogno di un update_target!!"
 
-mytodos_heading: Todo personali
-mytodos_edit_project_tooltip: "Modifica i todo per questo progetto"
+mypriorities_heading: Priority personali
+mypriorities_edit_project_tooltip: "Modifica i priority per questo progetto"
 
-todo_new_done_link: Aggiunta todo completata
-todo_new_due_label: Previsto per
-todo_new_or_label: o
-todo_new_create_button: Crea Todo
-todo_new_issue_tooltip: riferito a
-todo_new_assign_to_tooltip: assegna a
+priority_new_done_link: Aggiunta priority completata
+priority_new_due_label: Previsto per
+priority_new_or_label: o
+priority_new_create_button: Crea Priority
+priority_new_issue_tooltip: riferito a
+priority_new_assign_to_tooltip: assegna a
 
-todos_project_heading: Todo per
-todos_print_button_tooltip: Stampa questa lista
+priorities_project_heading: Priority per
+priorities_print_button_tooltip: Stampa questa lista
 
-todo_unmark_tooltip: Marca quest todo (e quelli collegati) come Incompleto
-todo_mark_tooltip: Marca questo todo (e quelli collegati) come Completato
-todo_add_child_tooltip: 'aggiungi sotto-todo collegato a questo todo'
-todo_delete_tooltip: cancella il todo (e quelli collegati!)
+priority_unmark_tooltip: Marca quest priority (e quelli collegati) come Incompleto
+priority_mark_tooltip: Marca questo priority (e quelli collegati) come Completato
+priority_add_child_tooltip: 'aggiungi sotto-priority collegato a questo priority'
+priority_delete_tooltip: cancella il priority (e quelli collegati!)
 
-todo_due_label: "Previsto per:"
-todo_assigned_label: "Assegnato a:"
-todo_ref_label: "Rif:"
+priority_due_label: "Previsto per:"
+priority_assigned_label: "Assegnato a:"
+priority_ref_label: "Rif:"
 
-project_module_todo_lists: Lista todo
+project_module_priority_lists: Lista priority
 
-permission_view_todos: Mostra lista todo
-permission_edit_todos: Modifica lista todo
-permission_use_personal_todos: Usa lista todo personale
+permission_view_priorities: Mostra lista priority
+permission_edit_priorities: Modifica lista priority
+permission_use_personal_priorities: Usa lista priority personale

@@ -1,0 +1,24 @@
+<%
+  priorities_controller = (controller.controller_name == 'issues') ? 'priorities' : controller.controller_name
+  editable ||= false
+  
+  raise unless parent_object
+%>
+
+    <ul class="priorities root" id="<%= PrioritiesController::UL_ID + 'root' %><%='not-editable' unless editable %>">
+      <% for priority in priorities.sort{|a,b| a.position <=> b.position} %>
+          <%= render :partial => 'priorities/priority_li', :locals => { :priority => priority, :editable => editable }%>
+      <% end unless priorities.blank? %>
+    </ul>
+    <%= 
+      if editable then
+         sortable_element(
+            PrioritiesController::UL_ID + 'root', 
+            #:url => {:controller => priorities_controller, :action => 'sort', :project_id => project_id},
+            :url => polymorphic_url([parent_object, :priorities], :action =>:sort), :method => :post,
+            :handle => "priority-content", :tree => true
+         ) 
+      end 
+    %>
+        
+

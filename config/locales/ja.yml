@@ -1,45 +1,45 @@
-#Todos Japanese locale File for Rails >= 2.2.2
+#Priorities Japanese locale File for Rails >= 2.2.2
 ja:
-  label_todo_plural: Todoリスト
-  my_todos_title: マイTodoリスト
+  label_priority_plural: Priorityリスト
+  my_priorities_title: マイPriorityリスト
 
-  todo_sort_no_project_error: "プロジェクトなしでソートすることはできません!"
-  todo_project_not_found_error: "プロジェクトが見つかりません!"
-  todo_new_missing_update_target_error: "更新対象が必要です!!"
+  priority_sort_no_project_error: "プロジェクトなしでソートすることはできません!"
+  priority_project_not_found_error: "プロジェクトが見つかりません!"
+  priority_new_missing_update_target_error: "更新対象が必要です!!"
 
-  mytodos_heading: マイTodoリスト
-  mytodos_edit_project_tooltip: "このプロジェクトのTodoの編集"
+  mypriorities_heading: マイPriorityリスト
+  mypriorities_edit_project_tooltip: "このプロジェクトのPriorityの編集"
 
-  todo_new_done_link: Todoを追加しました。
-  todo_new_due_label: 期限
-  todo_new_or_label: or
-  todo_new_create_button: Todoの作成
-  todo_new_issue_tooltip: 参照先
-  todo_new_assign_to_tooltip: 担当者
+  priority_new_done_link: Priorityを追加しました。
+  priority_new_due_label: 期限
+  priority_new_or_label: or
+  priority_new_create_button: Priorityの作成
+  priority_new_issue_tooltip: 参照先
+  priority_new_assign_to_tooltip: 担当者
 
-  todos_project_heading: Todos for
-  todos_print_button_tooltip: このリストの印刷
+  priorities_project_heading: Priorities for
+  priorities_print_button_tooltip: このリストの印刷
 
-  todo_unmark_tooltip: このTodo(と関連するTodo)を未完了に戻す
-  todo_mark_tooltip: このTodo(と関連するTodo)を完了する
-  todo_add_child_tooltip: このTodoに関連するTodoを追加する
-  todo_delete_tooltip: このTodo(と関連するTodo)を削除する
+  priority_unmark_tooltip: このPriority(と関連するPriority)を未完了に戻す
+  priority_mark_tooltip: このPriority(と関連するPriority)を完了する
+  priority_add_child_tooltip: このPriorityに関連するPriorityを追加する
+  priority_delete_tooltip: このPriority(と関連するPriority)を削除する
 
-  todo_due_label: "期限:"
-  todo_assigned_label: "担当者:"
-  todo_ref_label: "参照先:"
+  priority_due_label: "期限:"
+  priority_assigned_label: "担当者:"
+  priority_ref_label: "参照先:"
 
-  project_module_todo_lists: Todoリスト
+  project_module_priority_lists: Priorityリスト
 
-  permission_view_todos: View Todo Lists
-  permission_edit_todos: Edit Todo Lists
-  permission_use_personal_todos: Use personal Todo Lists
+  permission_view_priorities: View Priority Lists
+  permission_edit_priorities: Edit Priority Lists
+  permission_use_personal_priorities: Use personal Priority Lists
 
-  label_related_todos: 関連するTodo
+  label_related_priorities: 関連するPriority
 
-  todo_not_found_error: "Todoが見つかりません!"
+  priority_not_found_error: "Priorityが見つかりません!"
 
-  label_todo: Todo
-  todo_status_done: Done
-  todo_status_new: New
-  todo_status_updated: Updated
+  label_priority: Priority
+  priority_status_done: Done
+  priority_status_new: New
+  priority_status_updated: Updated

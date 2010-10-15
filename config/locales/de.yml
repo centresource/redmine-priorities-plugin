@@ -1,36 +1,36 @@
 #language file for de - post rails 2.2.2
 de:
-  label_todo_plural: Anstehende Aufgaben
-  my_todos_title: Meine anstehenden Aufgaben
+  label_priority_plural: Anstehende Aufgaben
+  my_priorities_title: Meine anstehenden Aufgaben
 
-  todo_sort_no_project_error: "Ohne Projekt kann nicht sortiert werden!"
-  todo_project_not_found_error: "Projekt nicht gefunden!"
-  todo_new_missing_update_target_error: "Sie benötigen ein update_target!"
+  priority_sort_no_project_error: "Ohne Projekt kann nicht sortiert werden!"
+  priority_project_not_found_error: "Projekt nicht gefunden!"
+  priority_new_missing_update_target_error: "Sie benötigen ein update_target!"
 
-  mytodos_heading: Meine anstehenden Aufgaben
-  mytodos_edit_project_tooltip: "Anstehende Aufgaben für dieses Projekt bearbeiten"
+  mypriorities_heading: Meine anstehenden Aufgaben
+  mypriorities_edit_project_tooltip: "Anstehende Aufgaben für dieses Projekt bearbeiten"
 
-  todo_new_done_link: Hinzufügen von Aufgaben beenden
-  todo_new_due_label: Fällig
-  todo_new_or_label: oder
-  todo_new_create_button: Neue Aufgabe erstellen
-  todo_new_issue_tooltip: verweist auf
-  todo_new_assign_to_tooltip: zugewiesen an
+  priority_new_done_link: Hinzufügen von Aufgaben beenden
+  priority_new_due_label: Fällig
+  priority_new_or_label: oder
+  priority_new_create_button: Neue Aufgabe erstellen
+  priority_new_issue_tooltip: verweist auf
+  priority_new_assign_to_tooltip: zugewiesen an
 
-  todos_project_heading: Anstehende Aufgaben für
-  todos_print_button_tooltip: Liste drucken
+  priorities_project_heading: Anstehende Aufgaben für
+  priorities_print_button_tooltip: Liste drucken
 
-  todo_unmark_tooltip: Diese Aufgabe (und alle Unteraufgaben) als noch nicht erledigt markieren
-  todo_mark_tooltip: Diese Aufgabe (und alle Unteraufgaben) als erledigt markieren
-  todo_add_child_tooltip: 'Unteraufgabe hinzufügen'
-  todo_delete_tooltip: Diese Aufgabe (und alle Unteraufgaben) löschen
+  priority_unmark_tooltip: Diese Aufgabe (und alle Unteraufgaben) als noch nicht erledigt markieren
+  priority_mark_tooltip: Diese Aufgabe (und alle Unteraufgaben) als erledigt markieren
+  priority_add_child_tooltip: 'Unteraufgabe hinzufügen'
+  priority_delete_tooltip: Diese Aufgabe (und alle Unteraufgaben) löschen
 
-  todo_due_label: "Fällig am:"
-  todo_assigned_label: "Zugewiesen an:"
-  todo_ref_label: "Bezug:"
+  priority_due_label: "Fällig am:"
+  priority_assigned_label: "Zugewiesen an:"
+  priority_ref_label: "Bezug:"
 
-  project_module_todo_lists: Liste anstehender Aufgaben
+  project_module_priority_lists: Liste anstehender Aufgaben
 
-  permission_view_todos: Anstehende Aufgaben einsehen
-  permission_edit_todos: Anstehende Aufgaben bearbeiten
-  permission_use_personal_todos: Persönliche Liste für anstehende Aufgaben nutzen
+  permission_view_priorities: Anstehende Aufgaben einsehen
+  permission_edit_priorities: Anstehende Aufgaben bearbeiten
+  permission_use_personal_priorities: Persönliche Liste für anstehende Aufgaben nutzen

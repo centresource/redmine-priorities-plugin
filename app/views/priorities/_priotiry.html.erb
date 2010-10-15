@@ -1,0 +1,102 @@
+<% priorities_controller = (controller.controller_name == 'issues') ? 'priorities' : controller.controller_name %>
+<% 
+  parent_object = priority.prioritizable 
+  raise unless parent_object
+%>
+<% editable ||= false %>
+
+
+
+<span class="priority-controls">
+  <% if editable then %>
+  
+    <% priority_issue = ((@issue && @issue.id) || priority.issue_id) %>
+    <% priority_class = priority.done ? 'icon-restore' : 'icon-done' %>
+    <% priority_img = priority.done ? 
+                      image_tag('cancel.png', :title => l(:priority_unmark_tooltip)) :
+                      image_tag('true.png', :title => l(:priority_mark_tooltip), :size=>'13x13') 
+    %>
+    
+    <%= link_to_remote( priority_img,
+          :url => polymorphic_url([parent_object,priority], :action => :toggle_complete), :method => :post,
+          :html => {:class => priority_class} 
+         )
+    %><%= link_to_remote( image_tag('add.png', :title => l(:priority_add_child_tooltip)), 
+      :url => new_polymorphic_url( [parent_object,:priority], :parent_id => priority, :issue_id => priority_issue), :method => :get,
+         
+      #{ :controller => "#{'projects/' + priority.project.identifier.to_s + '/' if priority.project}#{'issues/' + priority_issue.to_s + '/' if priority_issue}#{priorities_controller}/#{priority.id}",     :action => 'new' },
+      :html => {:class => 'icon-new'}, 
+      :update => "priority#{priority.id}-new-box" ) 
+        
+    %><%= link_to_remote( image_tag('edit.png', :title => 'Edit'), 
+      :url => edit_polymorphic_url( [parent_object,priority]), :method => :get,
+      :html => {:class => 'icon-edit'}, 
+      :update => "priority_#{priority.id}" )
+      
+    %><%= link_to_remote( image_tag('delete.png', :title => l(:priority_delete_tooltip)), 
+      :url => polymorphic_url([ parent_object,priority]), :method => :delete,
+      :confirm => l(:text_are_you_sure), :html => {:class => 'icon-delete'}, 
+      :update => "priority_#{priority.id}" ) 
+      
+    %>
+  
+  <% else %>
+    <%=
+      if priority.parent_id.nil? || priority.children.any? 
+          #image_tag('sub.gif')
+          image_tag('bullet_black.png') 
+      else
+          #image_tag('bullet_black.png')
+          image_tag('sub.gif')          
+      end
+    %>
+  <% end %>
+</span>
+
+<span class="priority-content <%= priority.done ? 'done' :'' %>">
+
+  <% if priority.done %>
+    <span class=date title="date completed">
+      <%= format_date(priority.completed_at) %>
+    </span>
+  <% end %>
+  <span class="text priority-has-children-<%= priority.children.any? %>">
+    <%= textilizable(priority.text) %>
+  </span>
+  <span class=notes>
+    <% if priority.due %>
+      <span class=due><%=l(:priority_due_label)%> <%= format_date(priority.due) %></span>
+    <% end %>
+    <% if priority.assigned_to %>
+      <span class=assigned><%=l(:priority_assigned_label)%>  <%= priority.assigned_to.name %></span>
+    <% end %>
+    <% if priority.refers_to and controller.controller_name != 'issues' %>
+      <span class=refers>
+        <%=l(:priority_ref_label)%>
+        <%= link_to "##{ priority.refers_to.id}", 
+                {:controller => :issues, :action => :show, :id => priority.refers_to.id},
+                 :title => "#{priority.refers_to.tracker.name}: #{priority.refers_to.subject}",
+		 :skip_relative_url_root => true %>
+      </span>
+    <% end %>
+  </span>
+</span>
+<div id='priority<%= priority.id %>-new-box'></div>
+
+    
+    <ul class="priorities children depth<%= priority.ancestors.size%>" id='<%= PrioritiesController::UL_ID + priority.id.to_s %>' >
+      <% for child_priority in priority.children %>
+          <%= render :partial => 'priorities/priority_li', :locals => {:priority => child_priority, :editable => editable} %>
+      <% end %>
+      <% if priority.children.empty?   %>
+        <li><ul style='min-height:1px; '></ul></li>
+      <% end %>
+    </ul>
+
+    
+
+  
+
+
+
+

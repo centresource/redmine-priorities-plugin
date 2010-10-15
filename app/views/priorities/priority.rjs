@@ -1,0 +1,19 @@
+raise unless @priority.prioritizable
+
+#re-render a priority, and also recreate the sorter helper for the parents container
+#if you dont use page.sortable to recreate, the sorting doesnt work for reloaded elements
+
+li_id = PrioritiesController::PRIORITY_LI_ID + @priority.id.to_s
+
+page.replace_html li_id, @element_html
+
+
+#recreate the root sortable element
+root_ul_id = PrioritiesController::UL_ID + @priority.root.parent_or_root_id
+page.sortable(root_ul_id, 
+                {   
+                  :url => polymorphic_url([@priority.prioritizable, :priorities], :action =>:sort), :method => :post,
+                  :handle => "priority-content", :tree => true 
+                })
+
+

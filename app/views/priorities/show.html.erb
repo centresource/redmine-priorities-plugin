@@ -1,0 +1,13 @@
+<% content_for :header_tags do %>
+    <%= stylesheet_link_tag 'priorities', :plugin => 'redmine_priorities_plugin' %>
+    <%= stylesheet_link_tag 'priorities_print', :plugin => 'redmine_priorities_plugin', :media => 'print' %>
+<% end %>
+
+<div id=project-priorities>
+  <%= render :partial => 'priorities/link_bar' %>
+    <h2><%= l(:label_priority_plural) %></h2>
+    <ul class="priorities root" id="<%= PrioritiesController::UL_ID + 'rootnot-editable' %>">
+      <%= render :partial => 'priorities/priority_li',
+	:locals => {:priorities => @priorities, :project_id => nil, :priority => @priority, :editable => false} %>
+    </ul>
+</div>

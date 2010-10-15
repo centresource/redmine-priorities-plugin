@@ -1,0 +1,33 @@
+<% content_for :header_tags do %>
+    <%= stylesheet_link_tag 'priorities', :plugin => 'redmine_priorities_plugin' %>
+    <%= stylesheet_link_tag 'priorities_print', :plugin => 'redmine_priorities_plugin', :media => 'print' %>
+<% end %>
+
+<div id=project-priorities>
+  <%= render :partial => 'priorities/link_bar' %>
+  <h3><%= l(:mypriorities_heading)%></h3>
+  
+  <%= render :partial => 'priorities/new_priority',
+       :locals => {:priority => @new_priority } %>
+
+  <%= render :partial => 'priorities/root_priorities', 
+      :locals => {:priorities => @personal_priorities, :editable => true, :parent_object => @user} %>
+
+
+</div>
+
+<div id="project-priorities">
+  <% @grouped_project_priorities.each do |project, priorities| %>
+    <h3>
+      <%= link_to h(project.name), 
+           {:controller => 'priorities', :action => 'index', :project_id => project},
+           :class => (User.current.member_of?(project) ? "icon icon-fav" : ""),
+           :title => l(:mypriorities_edit_project_tooltip) %>
+      <%= l(:label_priority_plural) %>
+    </h3>
+    
+    <%= render :partial => 'priorities/root_priorities', :locals => {:priorities => priorities, :parent_object => project, :editable => false} %>
+        
+  <% end %>
+
+</div>

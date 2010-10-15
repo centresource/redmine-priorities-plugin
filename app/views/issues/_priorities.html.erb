@@ -1,0 +1,25 @@
+<%  if User.current.allowed_to?(:view_priorities, @project) || User.current.admin? %>
+  <% content_for :header_tags do %>
+      <%= stylesheet_link_tag 'priorities', :plugin => 'redmine_priorities_plugin' %>
+      <%= stylesheet_link_tag 'priorities_print', :plugin => 'redmine_priorities_plugin', :media => 'print' %>
+  <% end %>
+
+  <hr />
+  <div id=issue-priorities>
+    <div class="contextual">
+      <% if @allowed_to_edit_priorities %>
+          <%= toggle_link l(:button_add), 'new-priority-form'%>
+      <% end %>
+    </div>
+    <p><strong><%= l(:label_related_priorities) %></strong></p>
+    <div id='project-priorities'>
+      <%= render :partial => 'priorities/root_priorities',
+        :locals => {:priorities => @priorities, :parent_object => @project, :editable => @allowed_to_edit_priorities} %>
+    </div>
+  </div>
+<% end %>
+
+<div id='new-priority-form' style="<%= (params[:priority] ? '' : 'display: none;') %>">
+  <%= render(:partial => 'priorities/new_priority',
+    :locals => { :priority => @project.priorities.new(:assigned_to => User.current, :issue_id => @issue.id)}) if @allowed_to_edit_priorities %>
+</div>
