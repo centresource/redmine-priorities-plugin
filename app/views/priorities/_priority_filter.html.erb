@@ -1,0 +1,9 @@
+<div id="priorities-filter">
+  <h3>Filter Priorities</h3>
+  <% form_tag(project_priorities_path(@project), :method => 'get') do %>
+    <p>
+      <label for="user_id">User</label>
+      <%= select_tag :user_id, options_for_select(@member_choices, :selected => params[:user_id].to_i), :onchange => 'this.form.submit()' %>
+    </p>
+  <% end %>
+</div>

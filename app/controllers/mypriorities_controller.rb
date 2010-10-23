@@ -1,7 +1,6 @@
 #Inherits from the Priorities controller to save repition of all the priority methods.
-#Since priorities attach through the Priorityable interface, all you have to do is override
+#Since priorities attach through the prioritizable interface, all you have to do is override
 #the parent_object method, which finds/loads the object that the priorities belong to (User/Project/etc).
-#TODO: This could be done as a mixin module, something like 'acts_as_priorityable'.
 class MyprioritiesController < PrioritiesController
 
   before_filter :authorize
@@ -17,17 +16,17 @@ class MyprioritiesController < PrioritiesController
 
     #group the results by project, into a hash keyed on project.
     #this line is so beautiful it nearly made me cry!
-    @grouped_project_priorities = Set.new(@project_priorities).classify { |t| t.priorityable } 
+    @grouped_project_priorities = Set.new(@project_priorities).classify { |t| t.prioritizable } 
 
     @new_priority = @user.priorities.new(:author_id => @user.id)
   end
 
  protected
   def parent_object
-    priorityable = User.current   #you can only ever view your own mypriorities.
-    raise ActiveRecord::RecordNotFound, "Priority association not FOUND! " if !priorityable
+    prioritizable = User.current   #you can only ever view your own mypriorities.
+    raise ActiveRecord::RecordNotFound, "Priority association not FOUND! " if !prioritizable
 
-    return priorityable
+    return prioritizable
   end
 
  private

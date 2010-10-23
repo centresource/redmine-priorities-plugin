@@ -14,9 +14,8 @@
       if editable then
          sortable_element(
             PrioritiesController::UL_ID + 'root', 
-            #:url => {:controller => priorities_controller, :action => 'sort', :project_id => project_id},
             :url => polymorphic_url([parent_object, :priorities], :action =>:sort), :method => :post,
-            :handle => "priority-content", :tree => true
+            :handle => "handle", :tree => true
          ) 
       end 
     %>

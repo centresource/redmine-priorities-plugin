@@ -1,6 +1,6 @@
 class AddPositionToPriorities < ActiveRecord::Migration
   def self.up
-    add_column :priorities, :position, :integer
+    add_column :priorities, :position, :integer, :default => 0
   end
 
   def self.down

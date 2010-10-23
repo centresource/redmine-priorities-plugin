@@ -1,16 +1,4 @@
-#require 'ruby-debug'
-
-
 class PrioritiesController < ApplicationController
-
-  # put in a filthy hack to reload the patches to core redmine models.
-  # If cache_classes is off, the patches are dropped when the classes reload on every request.
-  # So, we reapply the patches here - for some reason it doesnt work in the Priority model.
-  # TODO: you are very welcome to find a better way to do this!
-  # unless Rails.configuration.cache_classes
-  # unloadable
-  #   Project.send(:include, PrioritiesProjectPatch)
-  # end
   
   before_filter :find_priority, :only => [:destroy, :show, :toggle_complete, :edit, :update]
   before_filter :authorize
@@ -25,10 +13,16 @@ class PrioritiesController < ApplicationController
     find_project
     @priorities = @project.priorities.roots
 
+    # filter by user_id
+    if params[:user_id] && params[:user_id] != '0'
+      @priorities = @priorities.reject { |p| p.assigned_to_id.to_s != params[:user_id] }
+    end
+
     @allowed_to_edit = User.current.allowed_to?(:edit_priorities, @project)
-    
-    @new_priority = parent_object.priorities.new() #Priority.new
-   
+
+    @new_priority = parent_object.priorities.new()
+
+    @member_choices = @project.members.collect { |member| [member.name, member.id] }.unshift(['All Users', 0])
   end
 
   def destroy
@@ -72,12 +66,30 @@ class PrioritiesController < ApplicationController
   def create
     @priority = parent_object.priorities.new(params[:priority])
     @priority.author = User.current
-    
+
     respond_to do |format|
+      # first, make sure the issue has an owner if this is an issue priority
+      if !@priority.issue_id.nil?
+        issue = Issue.find(@priority.issue_id)
+        if issue.assigned_to_id.nil?
+          format.html {
+            flash[:error] = "Selected issue must be assigned before it can be used for a priority."
+            redirect_to(:action => "index", :project_id => params[:project_id]) and return
+          }
+          format.js {
+            render :update do |page|
+              page.replace_html 'priority-error', '<p>Selected issue must be assigned before it can be used for a priority.</p>'
+            end and return
+          }
+        else
+          @priority.assigned_to_id = issue.assigned_to_id
+        end
+      end
+      
       if @priority.save
         format.html {
           flash[:notice] = l(:notice_successful_create)
-          redirect_to :action => "index", :project_id => params[:project_id]
+          redirect_to(:action => "index", :project_id => params[:project_id]) and return
         }
         format.js {
           @element_html = render_to_string :partial => 'priorities/priority_li', :locals => { :priority => @priority, :editable => true }
@@ -86,29 +98,14 @@ class PrioritiesController < ApplicationController
       else
         format.html {
           flash[:notice] = "Priority could not be created."
-          redirect_to :action => "index", :project_id => params[:project_id]
+          redirect_to(:action => "index", :project_id => params[:project_id]) and return
         }
         format.js {
           render :update do |page|
-            page.alert("There was an error saving the priority. Please make sure you provide all fields.")
+            page.replace_html 'priority-error', '<p>There was an error saving the priority. Make sure to provide all required fields.</p>'
           end and return
         }
       end
-    end
-    
-    if @priority.save
-      if (request.xhr?)
-        @element_html = render_to_string :partial => 'priorities/priority_li',
-                                         :locals => { :priority => @priority, :editable => true }
-        render :template => "priorities/create.rjs"    #using rjs
-      else
-        flash[:notice] = l(:notice_successful_create)
-
-        redirect_to :action => "index", :project_id => params[:project_id]
-      end
-    else
-      flash[:notice] = "Priority could not be created."
-      redirect_to :action => "index", :project_id => params[:project_id]
     end
   end
   
@@ -120,7 +117,7 @@ class PrioritiesController < ApplicationController
     @priorities = parent_object.priorities
     
     params.keys.select{|k| k.include? UL_ID }.each do |key|
-      Priority.sort_priorities(@priorities,params[key])
+      Priority.sort_priorities(@priorities, params[key])
     end
     
     render :nothing => true
@@ -152,10 +149,10 @@ class PrioritiesController < ApplicationController
  protected
   #TODO: there may be a better way...
   def parent_object
-    priorityable = Project.find(params[:project_id]) if params[:project_id]
-    raise ActiveRecord::RecordNotFound, "Priority association not FOUND! " if !priorityable
+    prioritizable = Project.find(params[:project_id]) if params[:project_id]
+    raise ActiveRecord::RecordNotFound, "Priority association not FOUND! " if !prioritizable
     
-    return priorityable
+    return prioritizable
   end
   
   def find_priority

@@ -18,8 +18,6 @@ module PrioritiesProjectPatch
     Project.class_eval do
       unloadable # Send unloadable so it will not be unloaded in development
       has_many :priorities, :as => :prioritizable, :dependent => :destroy
-      #raise ActiveRecord::RecordNotFound, "pie"
-	#puts "ARRRRGH!!!!!!!!!!" + base.to_s
     end
  
   end

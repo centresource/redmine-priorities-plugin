@@ -28,12 +28,28 @@ div.new-priority {
   margin-bottom: 20px;
 }
 div.new-priority  { font-size: 0.8em }
+
+.priority-choice {
+  background-color: #ccc;
+  color: black;
+  margin: 0px 0px 10px;
+  overflow:hidden;
+  padding: 5px;
+}
+.priority-choice p { float:left; margin:0 10px 0 0; line-height:14px; }
+
 .new-priority-date-cancel {  position: relative; top:2px; left: -2px; }
 
 .priority-due-cal { float:right; position:relative; top:2px; }
 
-.priority-fieldgroup { float:left; margin:0 25px 15px 0; }
-.priority-fieldgroup label { display:block; float:left; font-weight:bold; line-height:21px; margin:0 5px 0 0; }
+.priority-fieldgroup { margin:0 25px 15px 0; overflow:hidden; }
+.priority-fieldgroup label {
+  display:block;
+  float:left;
+  font-weight:bold;
+  line-height:21px;
+  margin:0 5px 0 0;
+}
 .priority-fieldgroup input[type="text"] { padding:3px 5px; margin:0; }
 .priority-fieldgroup .priority-due-date {
   background-color:#fff;
@@ -46,16 +62,15 @@ div.new-priority  { font-size: 0.8em }
 }
 .priority-fieldgroup .priority-due-date .priority-date { position:relative; top:-2px; }
 
+#priorities-filter {
+  margin:5px 0 20px 40px;
+}
+
 #project-priorities li {
   text-align: middle;
   vertical-align: middle;
   margin: 0 0 0 0;
 }
-/*#project-priorities img {
-  position: relative;
-  top: 2px;
-  max-height: 14px;
-}*/
 
 .priority-controls {
   margin-left: 0px;
@@ -96,14 +111,16 @@ div#issue-priorities #project-priorities span.notes span.refers { display: none;
 #project-priorities li .priority-content p{ display: inline;}
 li .priority-content .text form div{ display: none;}
 
-#project-priorities li .priority-content span.flash.error, div.new-priority span.flash.error {
-    background: transparent url(/images/false.png) no-repeat scroll 0px -2px;
-    color: #ff0000;
-    font-size: 11px;
-    padding-left: 20px;
+#priority-error { background-color:#fff; padding:0 10px; }
+#priority-error p { padding:5px 0; }
+#project-priorities li .priority-content span.flash.error,
+div.new-priority span.flash.error,
+#priority-error p {
+  background: transparent url(/images/false.png) no-repeat scroll 0px 50%;
+  color: #ff0000;
+  font-size: 11px;
+  padding-left: 20px;
 }
-
-.priority-content { cursor: move; }
 
 dt.priority {
     background-image:url(../images/priority.png);

@@ -1,6 +1,9 @@
 <% content_for :header_tags do %>
     <%= stylesheet_link_tag 'priorities', :plugin => 'redmine_priorities_plugin' %>
     <%= stylesheet_link_tag 'priorities_print', :plugin => 'redmine_priorities_plugin', :media => 'print' %>
+
+    <%= javascript_include_tag 'jquery-1.4.3.min.js', :plugin => 'redmine_priorities_plugin' %>
+    <%= javascript_include_tag 'priorities.js', :plugin => 'redmine_priorities_plugin' %>
 <% end %>
 
 
@@ -10,6 +13,10 @@
   <div>
     <%= render(:partial => 'new_priority', :locals => {:priority => @new_priority}) if @allowed_to_edit %>
   </div>
+  
+  <%- unless @project.priorities.roots.blank? -%>
+    <%= render :partial => 'priority_filter' %>
+  <%- end -%>
   
   <%= render :partial => 'root_priorities', :locals => {:priorities => @priorities, :parent_object => @project, :editable => @allowed_to_edit} %>
 </div>

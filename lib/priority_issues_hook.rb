@@ -7,7 +7,7 @@ class PriorityIssuesHook < Redmine::Hook::ViewListener
   # Context:
   # * :issue => Current issue
   #
-  render_on :view_issues_show_description_bottom, :partial => 'priorities', :locals => { :priorities => @priorities }
+  # render_on :view_issues_show_description_bottom, :partial => 'priorities', :locals => { :priorities => @priorities }
 
   def view_layouts_base_html_head(context = {})
     project = context[:project]

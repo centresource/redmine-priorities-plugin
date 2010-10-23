@@ -5,17 +5,44 @@
 
 <div class="new-priority">
   <h3>New Priority</h3>
+  <div id="priority-error"></div>
   <% remote_form_for [parent_object,priority], :success => "elements['priority[text]'].activate().clear();" do |f| %>
-      
+    <%- if priority.prioritizable.is_a? Project -%>
+      <div class="priority-choice">
+        <p><input type="radio" name="priority_type" value="general" checked="checked"> General Priority</p>
+        <p><input type="radio" name="priority_type" value="issue"> Issue Priority</p>
+      </div>
+    <%- end -%>
+
     <%= f.hidden_field :due, :id => "due#{priority.parent_id}", 
       :onchange => "$('due#{priority.parent_id}_span').update($('due#{priority.parent_id}').value); $('due#{priority.parent_id}_cancel_span').show();" %>
     <%= f.hidden_field :parent_id %>
     
-    <div class="priority-fieldgroup">
-      <%= f.label :text, 'Title' %>
+    <div class="priority-fieldgroup" id="priority-title-container">
+      <%= f.label :text, '*Title' %>
       <%= f.text_field :text, :size => 40 %>
     </div>
-    
+
+    <% if priority.prioritizable.is_a? Project %>
+      <div class='priority-fieldgroup' id="priority-assigned-to-container">
+        <label for="assigned_to_id">*Assigned to:</label>
+        <%= f.select :assigned_to_id, priority.prioritizable.users.collect{ |m| [m.name,m.id] },
+             {:prompt => l(:priority_new_assign_to_tooltip) },  
+             {:title => l(:priority_new_assign_to_tooltip) }
+        %>
+      </div>
+
+      <div class="priority-fieldgroup" id="priority-references-container" style="display:none;">
+        <label for="issue_id">*References Issue:</label>
+        <%= f.select :issue_id, priority.possible_issues.collect{ |i| 
+                subject = i.subject[0..40].scan(/([\x00-\x7f]|[\xC0-\xDF][\x80-\xBF]|[\xE0-\xEF][\x80-\xBF]{2}|[\xF0-\xF7][\x80-\xBF]{3})/on).join
+                ["##{i.id} #{subject}... #{i.tracker.name}" , i.id]
+              },
+              {:prompt => l(:priority_new_issue_tooltip), :selected => (priority.issue_id)?  priority.issue_id.to_i : nil}
+        %>
+      </div>
+    <% end %>
+
     <div class="priority-fieldgroup">
       <label><%= l(:priority_new_due_label) %></label>
       <div class="priority-due-date">
@@ -34,30 +61,6 @@
         </span>
       </div>
     </div>
-    
-    <div class="clearer"></div>
-
-    <% if priority.prioritizable.is_a? Project %>
-      <div class='priority-fieldgroup'>
-        <label>Assigned to:</label>
-        <%= f.select :assigned_to_id, priority.prioritizable.users.collect{ |m| [m.name,m.id] },
-             {:prompt => l(:priority_new_assign_to_tooltip) },  
-             {:title => l(:priority_new_assign_to_tooltip) }
-        %>
-      </div>
-      
-      <div class="priority-fieldgroup">
-        <label>References Issue:</label>
-        <%= f.select :issue_id, priority.possible_issues.collect{ |i| 
-                subject = i.subject[0..40].scan(/([\x00-\x7f]|[\xC0-\xDF][\x80-\xBF]|[\xE0-\xEF][\x80-\xBF]{2}|[\xF0-\xF7][\x80-\xBF]{3})/on).join
-                ["##{i.id} #{subject}... #{i.tracker.name}" , i.id]
-              },
-              {:prompt => l(:priority_new_issue_tooltip), :selected => (priority.issue_id)?  priority.issue_id.to_i : nil}
-        %>
-      </div>
-      
-      <div class="clearer"></div>
-    <% end %>
     
     <%= f.submit l(:priority_new_create_button) %>
     

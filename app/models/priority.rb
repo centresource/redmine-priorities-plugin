@@ -109,18 +109,13 @@ class Priority < ActiveRecord::Base
     #    "1"=>{"0"=>{"id"=>"93"}, "id"=>"68", "1"=>{"id"=>"92"}, "2"=>{"id"=>"94"}},
     #    "2"=>{"id"=>"55"}, etc.. }
     #so make a recursive reordering function for that structure.
-  def self::sort_priorities(valid_priorities, priorities_position_tree = {}) #element_identifier = "priority-children-ul_", params = {})
-    
-    #logger.info "sorting!" + priorities_position_tree.inspect
-    
+  def self::sort_priorities(valid_priorities, priorities_position_tree = {})
     reorder = lambda { |order_hash_array, parent_id| 
       
       order_hash_array.each{|position,children_hash|
         
         id = children_hash["id"].to_i
         priority = valid_priorities.select{|t| t.id == id }.first
-        #priority.reload
-        #logger.debug "id:#{priority.id} n:#{priority.text} parent:#{parent_id} position:#{position}"
         
         priority.update_attributes!(:parent_id => parent_id, :position => position) unless priority.nil?
         

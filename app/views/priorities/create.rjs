@@ -6,6 +6,7 @@ raise unless @priority.prioritizable
 parent_ul_id = PrioritiesController::UL_ID + @priority.parent_or_root_id
 
 page.insert_html :bottom, parent_ul_id, @element_html
+page.replace_html 'priority-error', ''
 
 #recreate the root sortable element
 root_ul_id = PrioritiesController::UL_ID + @priority.root.parent_or_root_id
