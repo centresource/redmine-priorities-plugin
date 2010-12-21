@@ -120,8 +120,8 @@ div.new-priority  { font-size: 0.8em }
   float: right;
   vertical-align: bottom;
   min-height: 6.2em;
+  padding-top: 5px;
 }
-
 div#issue-priorities .priority { padding: 4px;}
 div#issue-priorities .priority { border-bottom: 1px solid #ddd; }
 div#issue-priorities p { margin-top: 0; margin-bottom: 1em;}
