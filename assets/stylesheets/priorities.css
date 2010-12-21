@@ -7,9 +7,31 @@
 #project-priorities ul.root {
   list-style-image: none;
   list-style-type: none;
-  
+  margin: 20px 10px;
+  padding: 0;
 }
-#project-priorities ul.root li { font-size: 1.1em; padding-bottom: 0.6em; }
+#project-priorities ul.root li {
+	font-size: 1.1em;
+}
+	#project-priorities ul.root li.to-do {	
+		border-top: solid 1px #ccc;
+		border-bottom: solid 1px #ccc;
+		font-size: 12px;
+		margin-top: -1px;
+		padding: 10px 8px 0px 8px;
+	}
+		#project-priorities ul.root li.to-do:hover {
+			background-color: #FFFFDD;
+		}
+		#project-priorities ul.root ul.children li.to-do {
+			padding: 10px 5px 0px 5px;
+		}
+		#project-priorities ul.root li.to-do .notes .assigned {
+			margin-left: 0;
+		}
+		#project-priorities ul.root li.to-do .notes .due {
+			color: #D15C5C;
+		}
 #project-priorities ul.root ul.children { padding-bottom: 0px; padding-top: 0.5em;}
 #project-priorities ul.root ul.children li { font-size: 0.9em; padding-bottom: 0em; padding-top: 0.0em;}
 /*#project-priorities div.children { padding-bottom: 10px;}*/
@@ -19,18 +41,15 @@ span.priority-has-children-true {text-decoration: underline; }
 /* #project-priorities ul.depth0 { background-color: #cecece;} */
 
 div.new-priority { 
-  background-color: #ffe2a9;
-  border: 1px solid #999;
+  background-color: #FFFFDD;
+  border: 1px solid #D7D7D7;
   padding: 15px;
-  width: 600px;
-  margin-left: 40px;
-  margin-top: 5px;
-  margin-bottom: 20px;
+  margin: 10px 0;
 }
 div.new-priority  { font-size: 0.8em }
 
 .priority-choice {
-  background-color: #ccc;
+  background-color: #E8E8B5;
   color: black;
   margin: 0px 0px 10px;
   overflow:hidden;
@@ -63,7 +82,7 @@ div.new-priority  { font-size: 0.8em }
 .priority-fieldgroup .priority-due-date .priority-date { position:relative; top:-2px; }
 
 #priorities-filter {
-  margin:5px 0 20px 40px;
+  margin: 20px 10px;
 }
 
 #project-priorities li {
@@ -73,15 +92,17 @@ div.new-priority  { font-size: 0.8em }
 }
 
 .priority-controls {
-  margin-left: 0px;
+  margin: 0 15px 0 0;
   text-decoration: none;
 }
 .priority-controls img, .priority-controls a {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
-  vertical-align:middle;
-
+  vertical-align: text-top;
 }
+	.priority-controls .handle {
+		padding-top: 2px;
+	}
 .priorities .date {
   font-weight: bold;
   font-size: 0.8em;
@@ -92,7 +113,7 @@ div.new-priority  { font-size: 0.8em }
 .priorities .due {}
 .priorities .assigned {}
 .priorities .refers {}
-.priorities .notes {font-size: 0.9em; font-style:italic;  color: #446994; }
+.priorities .notes {font-size: 0.9em; font-style:italic;  color: #666; }
 .priorities .notes span { margin-left: 1em; }
 
 #priorities-link-bar {
