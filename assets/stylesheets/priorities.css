@@ -21,7 +21,7 @@
 		padding: 10px 8px 0px 8px;
 	}
 		#project-priorities ul.root li.to-do:hover {
-			background-color: #FFFFDD;
+			background-color: #EDF3FE;
 		}
 		#project-priorities ul.root ul.children li.to-do {
 			padding: 10px 5px 0px 5px;
