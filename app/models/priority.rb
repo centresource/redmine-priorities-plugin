@@ -100,6 +100,19 @@ class Priority < ActiveRecord::Base
     self.ancestors.unshift self
   end
   
+  def done?
+    return true if self.done
+    
+    return issue_is_completed if self.prioritizable.is_a?(Project)
+    
+    return false
+  end
+  
+  def issue_is_completed
+    return true if self.prioritizable.is_a?(Project) && !self.refers_to.nil? && self.refers_to.status.is_closed
+
+    return false
+  end
   
   #complicated ugly method that sorts priorities based on the nested param array passed in from
   #the Prototype sortable element helper.

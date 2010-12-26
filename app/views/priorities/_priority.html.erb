@@ -9,26 +9,28 @@
   <% if editable %>
     <%
       priority_issue = ((@issue && @issue.id) || priority.issue_id)
-      priority_class = priority.done ? 'icon-restore' : 'icon-done'
-      priority_img = priority.done ? 
+      priority_class = priority.done? ? 'icon-restore' : 'icon-done'
+      priority_img = priority.done? ? 
                       image_tag('cancel.png', :title => l(:priority_unmark_tooltip)) :
                       image_tag('true.png', :title => l(:priority_mark_tooltip), :size=>'14x14') 
     %>
     <span class="handle">
       <%= image_tag '/plugin_assets/redmine_priorities_plugin/images/handle.png', :size=>'13x13' %>
     </span>
-    <%= link_to_remote( priority_img,
-          :url => polymorphic_url([parent_object,priority], :action => :toggle_complete), :method => :post,
-          :html => {:class => priority_class} 
-         )
-    %><%# link_to_remote( image_tag('add.png', :title => l(:priority_add_child_tooltip)), 
+    <%- if priority.refers_to.nil? -%>
+      <%= link_to_remote( priority_img,
+            :url => polymorphic_url([parent_object,priority], :action => :toggle_complete), :method => :post,
+            :html => {:class => priority_class} 
+           )
+      %><%# link_to_remote( image_tag('add.png', :title => l(:priority_add_child_tooltip)), 
       :url => new_polymorphic_url( [parent_object,:priority], :parent_id => priority, :issue_id => priority_issue), :method => :get,
          
       #{ :controller => "#{'projects/' + priority.project.identifier.to_s + '/' if priority.project}#{'issues/' + priority_issue.to_s + '/' if priority_issue}#{priorities_controller}/#{priority.id}",     :action => 'new' },
       :html => {:class => 'icon-new'}, 
       :update => "priority#{priority.id}-new-box" ) 
-        
-    %><%= link_to_remote( image_tag('edit.png', :title => 'Edit'), 
+    %>
+    <%- end -%>
+    <%= link_to_remote( image_tag('edit.png', :title => 'Edit'), 
       :url => edit_polymorphic_url( [parent_object,priority]), :method => :get,
       :html => {:class => 'icon-edit'}, 
       :update => "priority_#{priority.id}" )
@@ -38,7 +40,7 @@
       :confirm => l(:text_are_you_sure), :html => {:class => 'icon-delete'}, 
       :update => "priority_#{priority.id}" ) 
       
-    %>
+    -%>
   
   <% else %>
     <%=
@@ -53,18 +55,25 @@
   <% end %>
 </span>
 
-<span class="priority-content <%= priority.done ? 'done' :'' %>">
+<span class="priority-content <%= priority.done? ? 'done' :'' %>">
 
-  <% if priority.done %>
+  <% if priority.done? %>
     <span class="date" title="date completed">
       <%= format_date(priority.completed_at) %>
     </span>
   <% end %>
   <span class="text priority-has-children-<%= priority.children.any? %>">
     <%- if priority.refers_to -%>
-      <%= link_to "#{priority.refers_to.tracker.name}: #{priority.refers_to.subject}", 
+      <%- status = priority.refers_to.status -%>
+      <%- if status.name == 'Pending' -%>
+        <em>
+      <%- end -%>
+      <%= link_to "#{priority.refers_to.tracker.name}: #{priority.refers_to.subject}#{status.name == 'Pending' ? ' (pending)' : ''}", 
               {:controller => :issues, :action => :show, :id => priority.refers_to.id},
                :skip_relative_url_root => true %>
+      <%- if status.name == 'Pending' -%>
+        </em>
+      <%- end -%>
     <%- else -%>
       <%= textilizable(priority.text) %>
     <%- end -%>

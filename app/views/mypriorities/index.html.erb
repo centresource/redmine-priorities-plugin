@@ -19,11 +19,10 @@
 <div id="project-priorities">
   <% @grouped_project_priorities.each do |project, priorities| %>
     <h3>
-      <%= link_to h(project.name), 
+      <%= link_to h("#{project.name} #{l(:label_priority_plural)}"), 
            {:controller => 'priorities', :action => 'index', :project_id => project},
            :class => (User.current.member_of?(project) ? "icon icon-fav" : ""),
            :title => l(:mypriorities_edit_project_tooltip) %>
-      <%= l(:label_priority_plural) %>
     </h3>
     
     <%= render :partial => 'priorities/root_priorities', :locals => {:priorities => priorities, :parent_object => project, :editable => false} %>
