@@ -22,7 +22,7 @@ class PrioritiesController < ApplicationController
 
     @new_priority = parent_object.priorities.new()
 
-    @member_choices = @project.members.collect { |member| [member.name, member.id] }.unshift(['All Users', 0])
+    @member_choices = @project.members.collect { |member| [member.name, member.user_id] }.unshift(['All Users', 0])
   end
 
   def destroy
