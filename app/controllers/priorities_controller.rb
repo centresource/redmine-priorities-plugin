@@ -72,13 +72,14 @@ class PrioritiesController < ApplicationController
       if !@priority.issue_id.nil?
         issue = Issue.find(@priority.issue_id)
         if issue.assigned_to_id.nil?
+          message = "Selected issue must be assigned before it can be used for a priority.  Click <a href=\"/issues/#{@priority.issue_id}\">here</a> to assign";
           format.html {
-            flash[:error] = "Selected issue must be assigned before it can be used for a priority."
+            flash[:error] = message
             redirect_to(:action => "index", :project_id => params[:project_id]) and return
           }
           format.js {
             render :update do |page|
-              page.replace_html 'priority-error', '<p>Selected issue must be assigned before it can be used for a priority.</p>'
+              page.replace_html 'priority-error', "<p>#{message}</p>"
             end and return
           }
         else

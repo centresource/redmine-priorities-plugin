@@ -12,6 +12,9 @@
         <p><input type="radio" name="priority_type" value="general" checked="checked"> General Priority</p>
         <p><input type="radio" name="priority_type" value="issue"> Issue Priority</p>
       </div>
+    <%- else -%>
+      <%= f.hidden_field :assigned_to_id %>
+      <%= f.hidden_field :author_id %>
     <%- end -%>
 
     <%= f.hidden_field :due, :id => "due#{priority.parent_id}", 

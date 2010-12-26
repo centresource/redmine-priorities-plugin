@@ -18,7 +18,7 @@ class MyprioritiesController < PrioritiesController
     #this line is so beautiful it nearly made me cry!
     @grouped_project_priorities = Set.new(@project_priorities).classify { |t| t.prioritizable } 
 
-    @new_priority = @user.priorities.new(:author_id => @user.id)
+    @new_priority = @user.priorities.new(:author_id => @user.id, :assigned_to_id => @user.id)
   end
 
  protected
