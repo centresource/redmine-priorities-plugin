@@ -40,7 +40,7 @@ Redmine::Plugin.register :redmine_priorities_plugin do
   settings :default => {
     'priorities_auto_complete_parent' => false
   },
-  :partial => 'settings/settings'
+  :partial => 'settings/priorities_settings'
   
   project_module :priority_lists do
     permission :view_priorities, {:priorities => [:index, :show] }
